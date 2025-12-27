@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Messenger - پیام‌رسان شیشه‌ای پیشرفته</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        :root {
+            --primary-color: #0088cc;
+            --primary-dark: #006699;
+            --secondary-color: #f0f0f0;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --bg-color: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --border-color: #e0e0e0;
+            --success-color: #4caf50;
+            --error-color: #f44336;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            --online-color: #4CAF50;
+            --offline-color: #757575;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .liquid-glass {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            overflow: hidden;
+        }
+
+        .liquid-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            z-index: 1;
+            pointer-events: none;
+            animation: liquid-flow 6s infinite linear;
+        }
+
+        @keyframes liquid-flow {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Login Page */
+        .login-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #0088cc, #00ccff);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+            animation: logo-shine 4s infinite linear;
+        }
+
+        @keyframes logo-shine {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .logo i {
+            font-size: 60px;
+            color: white;
+            z-index: 2;
+        }
+
+        .app-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            width: 100%;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-label {
+            display: block;
+            text-align: right;
+            color: white;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .glass-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .glass-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(to right, #0088cc, #00aaff);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 136, 204, 0.4);
+        }
+
+        .countdown {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .resend-link {
+            color: #00ccff;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        /* Main App */
+        .main-app {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0088cc, #00ccff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: white;
+            font-size: 16px;
+        }
+
+        .user-status {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+            position: relative;
+        }
+
+        .online-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: var(--online-color);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            bottom: 0;
+            right: 0;
+        }
+
+        .chat-info {
+            flex: 1;
+        }
+
+        .chat-name {
+            font-weight: 600;
+            color: white;
+            font-size: 18px;
+        }
+
+        .chat-status {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .messages-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            position: relative;
+            word-wrap: break-word;
+            animation: message-appear 0.3s ease-out;
+        }
+
+        @keyframes message-appear {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #0088cc, #006699);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.received {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-bottom-left-radius: 5px;
+            backdrop-filter: blur(5px);
+        }
+
+        .message-time {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .message-input-container {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .input-wrapper {
+            flex: 1;
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .message-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 10px 15px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .attach-btn, .send-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #0088cc, #006699);
+        }
+
+        /* Contacts Page */
+        .contacts-page {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        .contacts-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .contacts-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .contacts-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .contact-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .contact-last-message {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 200px;
+        }
+
+        .contact-time {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.2s ease;
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            width: fit-content;
+            margin-bottom: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: typing-bounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing-bounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container { height: 95vh; max-width: 100%; }
+            .logo { width: 100px; height: 100px; }
+            .logo i { font-size: 50px; }
+            .app-title { font-size: 28px; }
+            .message { max-width: 85%; }
+        }
+
+        /* Chat List Page */
+        .chats-page {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        .chats-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .chats-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .chats-search-box {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .chats-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .chat-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .chat-item-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .chat-item-info {
+            flex: 1;
+        }
+
+        .chat-item-name {
+            font-weight: 600;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .chat-item-last-message {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 200px;
+        }
+
+        .chat-item-time {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .unread-badge {
+            background: linear-gradient(135deg, #FF5252, #FF4081);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container liquid-glass">
+        <!-- Login Page -->
+        <div id="loginPage" class="login-page">
+            <div class="logo">
+                <i class="fas fa-comments"></i>
+            </div>
+            <h1 class="app-title">Glass Messenger</h1>
+            <p class="app-subtitle">پیام‌رسان شیشه‌ای با ذخیره مکالمه</p>
+            
+            <div class="input-group">
+                <label class="input-label" id="phoneLabel">شماره موبایل</label>
+                <input type="tel" id="phoneInput" class="glass-input" placeholder="09*********" maxlength="11">
+            </div>
+            
+            <div class="input-group" id="codeGroup" style="display: none;">
+                <label class="input-label" id="codeLabel">کد تأیید</label>
+                <input type="text" id="codeInput" class="glass-input" placeholder="کد ۶ رقمی" maxlength="6">
+                <div class="countdown" id="countdown">کد تا <span id="timeLeft">120</span> ثانیه دیگر معتبر است</div>
+            </div>
+            
+            <button id="submitBtn" class="btn-primary" onclick="handleSubmit()">ارسال کد تأیید</button>
+            
+            <div id="resendLink" class="resend-link" style="display: none;" onclick="resendCode()">ارسال مجدد کد</div>
+        </div>
+
+        <!-- Main App -->
+        <div id="mainApp" class="main-app">
+            <!-- Header -->
+            <div class="header">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">ش</div>
+                    <div class="user-details">
+                        <div class="user-name" id="userName">کاربر مهمان</div>
+                        <div class="user-status">آنلاین</div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="icon-btn" onclick="showContactsPage()">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="icon-btn" onclick="showSettings()">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat List Page -->
+            <div id="chatsPage" class="chats-page">
+                <div class="chats-header">
+                    <div class="chats-title">گفتگوها</div>
+                    <input type="text" class="chats-search-box" id="chatsSearch" placeholder="جستجوی گفتگو...">
+                </div>
+                
+                <div class="chats-list" id="chatsList">
+                    <!-- Chat items will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Chat Container -->
+            <div id="chatContainer" class="chat-container" style="display: none;">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="chat-avatar" id="chatAvatar">
+                        <span id="chatAvatarText">م</span>
+                        <div class="online-dot" id="onlineDot"></div>
+                    </div>
+                    <div class="chat-info">
+                        <div class="chat-name" id="chatName">محمدرضا</div>
+                        <div class="chat-status" id="chatStatus">آنلاین</div>
+                    </div>
+                </div>
+
+                <!-- Messages Area -->
+                <div class="messages-area" id="messagesArea">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+
+                <!-- Message Input -->
+                <div class="message-input-container">
+                    <div class="input-wrapper">
+                        <input type="text" class="message-input" id="messageInput" placeholder="پیام خود را بنویسید...">
+                        <div class="attach-btn" onclick="attachFile()">
+                            <i class="fas fa-paperclip"></i>
+                        </div>
+                    </div>
+                    <div class="send-btn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts Page -->
+            <div id="contactsPage" class="contacts-page" style="display: none;">
+                <div class="contacts-header">
+                    <div class="contacts-title">مخاطبین</div>
+                    <input type="text" class="search-box" id="contactSearch" placeholder="جستجوی مخاطب...">
+                </div>
+                
+                <div class="contacts-list" id="contactsList">
+                    <!-- Contacts will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+                <div class="nav-item active" id="navChats" onclick="showChatsPage()">
+                    <i class="fas fa-comments nav-icon"></i>
+                    <span class="nav-label">گفتگوها</span>
+                </div>
+                <div class="nav-item" id="navContacts" onclick="showContactsPage()">
+                    <i class="fas fa-users nav-icon"></i>
+                    <span class="nav-label">مخاطبین</span>
+                </div>
+                <div class="nav-item" id="navProfile" onclick="showProfile()">
+                    <i class="fas fa-user nav-icon"></i>
+                    <span class="nav-label">پروفایل</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">پیام ارسال شد</span>
+    </div>
+
+    <script>
+        // سیستم ذخیره‌سازی پیام‌های هر کاربر
+        class UserMessageSystem {
+            constructor() {
+                // اگر قبلاً داده‌ای ذخیره شده، آن را بارگذاری کن
+                this.userMessages = JSON.parse(localStorage.getItem('userMessages')) || {};
+                this.users = JSON.parse(localStorage.getItem('users')) || {};
+                this.currentUser = null;
+            }
+            
+            // ثبت کاربر جدید یا ورود کاربر موجود
+            loginUser(phoneNumber, userName) {
+                const userId = phoneNumber;
+                
+                // اگر کاربر جدید است
+                if (!this.users[userId]) {
+                    this.users[userId] = {
+                        id: userId,
+                        phone: phoneNumber,
+                        name: userName,
+                        avatarColor: this.getRandomColor(),
+                        joined: new Date().toISOString(),
+                        contacts: {}
+                    };
+                    
+                    // ایجاد مکالمه اولیه با کاربران موجود
+                    this.initializeUserConversations(userId);
+                    
+                    // برای کاربران دیگر هم مکالمه با این کاربر جدید ایجاد کن
+                    this.createConversationForExistingUsers(userId, userName);
+                }
+                
+                this.currentUser = this.users[userId];
+                
+                // ذخیره در localStorage
+                this.saveData();
+                
+                return this.currentUser;
+            }
+            
+            // ایجاد مکالمات اولیه برای کاربر جدید
+            initializeUserConversations(userId) {
+                // ایجاد مکالمه با کاربران اصلی برنامه
+                const defaultUsers = {
+                    '09123456789': { name: 'محمدرضا', avatar: 'م', color: '#ff6b6b', online: true },
+                    '09123456780': { name: 'فاطمه', avatar: 'ف', color: '#4ecdc4', online: true },
+                    '09123456781': { name: 'علی', avatar: 'ع', color: '#45b7d1', online: false },
+                    '09123456782': { name: 'سارا', avatar: 'س', color: '#96ceb4', online: true }
+                };
+                
+                Object.keys(defaultUsers).forEach(contactId => {
+                    const contact = defaultUsers[contactId];
+                    
+                    // کلید مکالمه
+                    const chatKey = this.getChatKey(userId, contactId);
+                    
+                    // اگر مکالمه‌ای وجود ندارد، ایجاد کن
+                    if (!this.userMessages[chatKey]) {
+                        this.userMessages[chatKey] = [
+                            { 
+                                id: 1, 
+                                sender: contactId, 
+                                receiver: userId,
+                                text: contactId === '09123456789' ? 'سلام! به پیام‌رسان خوش آمدید' : 'سلام! چطوری؟',
+                                time: '10:30',
+                                date: new Date().toISOString(),
+                                read: false
+                            }
+                        ];
+                    }
+                    
+                    // اضافه کردن به مخاطبین کاربر
+                    this.users[userId].contacts[contactId] = {
+                        name: contact.name,
+                        avatar: contact.avatar,
+                        color: contact.color,
+                        online: contact.online,
+                        lastSeen: new Date().toISOString()
+                    };
+                });
+            }
+            
+            // برای کاربران موجود، مکالمه با کاربر جدید ایجاد کن
+            createConversationForExistingUsers(newUserId, newUserName) {
+                Object.keys(this.users).forEach(userId => {
+                    if (userId !== newUserId) {
+                        const chatKey = this.getChatKey(userId, newUserId);
+                        
+                        if (!this.userMessages[chatKey]) {
+                            this.userMessages[chatKey] = [
+                                { 
+                                    id: 1, 
+                                    sender: newUserId, 
+                                    receiver: userId,
+                                    text: `سلام! من ${newUserName} هستم`,
+                                    time: this.getCurrentTime(),
+                                    date: new Date().toISOString(),
+                                    read: false
+                                }
+                            ];
+                        }
+                        
+                        // اضافه کردن به مخاطبین کاربر موجود
+                        this.users[userId].contacts[newUserId] = {
+                            name: newUserName,
+                            avatar: newUserName.charAt(0),
+                            color: this.getRandomColor(),
+                            online: true,
+                            lastSeen: new Date().toISOString()
+                        };
+                    }
+                });
+            }
+            
+            // دریافت مکالمات کاربر جاری با یک مخاطب خاص
+            getMessagesWithContact(contactId) {
+                if (!this.currentUser) return [];
+                
+                const chatKey = this.getChatKey(this.currentUser.id, contactId);
+                return this.userMessages[chatKey] || [];
+            }
+            
+            // ارسال پیام جدید
+            sendMessage(receiverId, messageText) {
+                if (!this.currentUser || !messageText.trim()) return null;
+                
+                const chatKey = this.getChatKey(this.currentUser.id, receiverId);
+                
+                if (!this.userMessages[chatKey]) {
+                    this.userMessages[chatKey] = [];
+                }
+                
+                const newMessage = {
+                    id: this.userMessages[chatKey].length + 1,
+                    sender: this.currentUser.id,
+                    receiver: receiverId,
+                    text: messageText.trim(),
+                    time: this.getCurrentTime(),
+                    date: new Date().toISOString(),
+                    read: false
+                };
+                
+                this.userMessages[chatKey].push(newMessage);
+                
+                // ذخیره تغییرات
+                this.saveData();
+                
+                return newMessage;
+            }
+            
+            // دریافت پاسخ خودکار از مخاطب
+            getAutoReply(senderId) {
+                const replies = [
+                    "سلام! چطوری؟",
+                    "خوبی؟",
+                    "چطور روزت گذشت؟",
+                    "خبر جدیدی داری؟",
+                    "منتظر پیامت بودم",
+                    "فکر جالبیه",
+                    "باید بیشتر در موردش صحبت کنیم",
+                    "خوشحالم که باهات در ارتباطم",
+                    "پیامت رو خوندم",
+                    "منم همین فکر رو داشتم"
+                ];
+                
+                // اگر مخاطب یکی از کاربران اصلی است، پاسخ خاص بده
+                if (senderId === '09123456789') {
+                    const specificReplies = [
+                        "به پیام‌رسان ما خوش آمدید!",
+                        "از جلوه‌های شیشه‌ای برنامه خوشت اومد؟",
+                        "میتونی با بقیه کاربران هم چت کنی",
+                        "امیدوارم از برنامه لذت ببری"
+                    ];
+                    return specificReplies[Math.floor(Math.random() * specificReplies.length)];
+                }
+                
+                return replies[Math.floor(Math.random() * replies.length)];
+            }
+            
+            // ارسال پاسخ خودکار از طرف مخاطب
+            sendAutoReply(receiverId) {
+                if (!this.currentUser) return null;
+                
+                const chatKey = this.getChatKey(this.currentUser.id, receiverId);
+                
+                if (!this.userMessages[chatKey]) {
+                    this.userMessages[chatKey] = [];
+                }
+                
+                const autoReply = {
+                    id: this.userMessages[chatKey].length + 1,
+                    sender: receiverId,
+                    receiver: this.currentUser.id,
+                    text: this.getAutoReply(receiverId),
+                    time: this.getCurrentTime(),
+                    date: new Date().toISOString(),
+                    read: false
+                };
+                
+                this.userMessages[chatKey].push(autoReply);
+                this.saveData();
+                
+                return autoReply;
+            }
+            
+            // دریافت لیست مکالمات کاربر جاری
+            getUserChats() {
+                if (!this.currentUser) return [];
+                
+                const chats = [];
+                const currentUserId = this.currentUser.id;
+                
+                // پیدا کردن تمام مکالمات کاربر جاری
+                Object.keys(this.userMessages).forEach(chatKey => {
+                    if (chatKey.includes(currentUserId)) {
+                        // استخراج شناسه مخاطب از کلید مکالمه
+                        const participantIds = chatKey.split('_');
+                        const otherUserId = participantIds[0] === currentUserId ? participantIds[1] : participantIds[0];
+                        
+                        // اگر مخاطب در لیست کاربران وجود دارد
+                        if (this.users[otherUserId]) {
+                            const messages = this.userMessages[chatKey];
+                            const lastMessage = messages[messages.length - 1];
+                            const unreadCount = messages.filter(m => 
+                                m.sender === otherUserId && !m.read
+                            ).length;
+                            
+                            chats.push({
+                                contactId: otherUserId,
+                                contactName: this.users[otherUserId].name,
+                                contactAvatar: this.users[otherUserId].name.charAt(0),
+                                contactColor: this.users[otherUserId].avatarColor,
+                                lastMessage: lastMessage ? lastMessage.text : 'شروع مکالمه',
+                                lastMessageTime: lastMessage ? lastMessage.time : '',
+                                unreadCount: unreadCount,
+                                online: this.users[otherUserId].contacts && 
+                                       this.users[otherUserId].contacts[currentUserId] &&
+                                       this.users[otherUserId].contacts[currentUserId].online
+                            });
+                        }
+                    }
+                });
+                
+                // مرتب‌سازی بر اساس آخرین پیام
+                chats.sort((a, b) => {
+                    if (!a.lastMessageTime) return 1;
+                    if (!b.lastMessageTime) return -1;
+                    return b.lastMessageTime.localeCompare(a.lastMessageTime);
+                });
+                
+                return chats;
+            }
+            
+            // دریافت مخاطبین کاربر جاری
+            getUserContacts() {
+                if (!this.currentUser) return [];
+                
+                const contacts = [];
+                const currentUserId = this.currentUser.id;
+                
+                // اضافه کردن کاربران اصلی
+                const defaultUsers = {
+                    '09123456789': { name: 'محمدرضا', avatar: 'م', color: '#ff6b6b', online: true },
+                    '09123456780': { name: 'فاطمه', avatar: 'ف', color: '#4ecdc4', online: true },
+                    '09123456781': { name: 'علی', avatar: 'ع', color: '#45b7d1', online: false },
+                    '09123456782': { name: 'سارا', avatar: 'س', color: '#96ceb4', online: true },
+                    '09123456783': { name: 'پویا', avatar: 'پ', color: '#feca57', online: false },
+                    '09123456784': { name: 'نازنین', avatar: 'ن', color: '#ff9ff3', online: true }
+                };
+                
+                Object.keys(defaultUsers).forEach(userId => {
+                    if (userId !== currentUserId) {
+                        contacts.push({
+                            id: userId,
+                            name: defaultUsers[userId].name,
+                            avatar: defaultUsers[userId].avatar,
+                            color: defaultUsers[userId].color,
+                            online: defaultUsers[userId].online,
+                            lastSeen: 'آخرین بازدید: امروز'
+                        });
+                    }
+                });
+                
+                // اضافه کردن کاربران واقعی که ثبت‌نام کرده‌اند
+                Object.keys(this.users).forEach(userId => {
+                    if (userId !== currentUserId && !defaultUsers[userId]) {
+                        const user = this.users[userId];
+                        contacts.push({
+                            id: userId,
+                            name: user.name,
+                            avatar: user.name.charAt(0),
+                            color: user.avatarColor,
+                            online: Math.random() > 0.5, // شبیه‌سازی وضعیت آنلاین
+                            lastSeen: `عضویت: ${new Date(user.joined).toLocaleDateString('fa-IR')}`
+                        });
+                    }
+                });
+                
+                return contacts;
+            }
+            
+            // علامت‌گذاری پیام‌ها به عنوان خوانده شده
+            markMessagesAsRead(contactId) {
+                if (!this.currentUser) return;
+                
+                const chatKey = this.getChatKey(this.currentUser.id, contactId);
+                
+                if (this.userMessages[chatKey]) {
+                    this.userMessages[chatKey].forEach(message => {
+                        if (message.sender === contactId && !message.read) {
+                            message.read = true;
+                        }
+                    });
+                    
+                    this.saveData();
+                }
+            }
+            
+            // تولید کلید یکتا برای مکالمه بین دو کاربر
+            getChatKey(userId1, userId2) {
+                return [userId1, userId2].sort().join('_');
+            }
+            
+            // دریافت زمان فعلی
+            getCurrentTime() {
+                const now = new Date();
+                let hours = now.getHours();
+                let minutes = now.getMinutes();
+                hours = hours < 10 ? '0' + hours : hours;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                return `${hours}:${minutes}`;
+            }
+            
+            // تولید رنگ تصادفی
+            getRandomColor() {
+                const colors = [
+                    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', 
+                    '#FECA57', '#FF9FF3', '#54A0FF', '#5F27CD',
+                    '#00D2D3', '#FF9F43', '#EE5A24', '#A3CB38'
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            // ذخیره داده‌ها در localStorage
+            saveData() {
+                localStorage.setItem('userMessages', JSON.stringify(this.userMessages));
+                localStorage.setItem('users', JSON.stringify(this.users));
+            }
+        }
+
+        // متغیرهای اصلی برنامه
+        const messageSystem = new UserMessageSystem();
+        let isLoginPhase = true;
+        let verificationCode = "123456";
+        let countdownInterval = null;
+        let timeLeft = 120;
+        let currentPage = 'chats';
+        let currentChatContact = null;
+        let typingTimeout = null;
+
+        // مقداردهی اولیه برنامه
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phoneInput');
+            phoneInput.addEventListener('input', formatPhoneNumber);
+            
+            const codeInput = document.getElementById('codeInput');
+            codeInput.addEventListener('input', validateCodeInput);
+            
+            const messageInput = document.getElementById('messageInput');
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+            
+            messageInput.addEventListener('input', function() {
+                if (currentChatContact) {
+                    showTypingIndicator();
+                }
+            });
+            
+            const contactSearch = document.getElementById('contactSearch');
+            contactSearch.addEventListener('input', filterContacts);
+            
+            const chatsSearch = document.getElementById('chatsSearch');
+            chatsSearch.addEventListener('input', filterChats);
+            
+            // بررسی اگر کاربری از قبل وارد شده
+            checkExistingLogin();
+        });
+
+        // بررسی اگر کاربر از قبل وارد سیستم شده
+        function checkExistingLogin() {
+            const lastUser = localStorage.getItem('lastUser');
+            if (lastUser) {
+                const userData = JSON.parse(lastUser);
+                loginUserDirectly(userData.phone, userData.name);
+            }
+        }
+
+        // ورود مستقیم کاربر بدون نیاز به کد
+        function loginUserDirectly(phone, name) {
+            const user = messageSystem.loginUser(phone, name);
+            
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userAvatar').textContent = user.name.charAt(0);
+            
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'flex';
+            
+            showChatsPage();
+            showToast(`خوش آمدید ${user.name}`, "success");
+        }
+
+        // قالب‌بندی شماره تلفن
+        function formatPhoneNumber() {
+            let phone = document.getElementById('phoneInput').value.replace(/\D/g, '');
+            if (phone.length > 0) {
+                if (phone.startsWith('0')) phone = phone.substring(1);
+                if (phone.length > 10) phone = phone.substring(0, 10);
+            }
+            document.getElementById('phoneInput').value = phone;
+            validatePhoneNumber();
+        }
+
+        // اعتبارسنجی شماره تلفن
+        function validatePhoneNumber() {
+            const phone = document.getElementById('phoneInput').value;
+            const isValid = phone.length === 10;
+            document.getElementById('submitBtn').disabled = !isValid;
+            return isValid;
+        }
+
+        // اعتبارسنجی کد تأیید
+        function validateCodeInput() {
+            const code = document.getElementById('codeInput').value;
+            const isValid = code.length === 6;
+            document.getElementById('submitBtn').disabled = !isValid;
+            return isValid;
+        }
+
+        // مدیریت ارسال فرم
+        function handleSubmit() {
+            if (isLoginPhase) {
+                sendVerificationCode();
+            } else {
+                verifyCode();
+            }
+        }
+
+        // ارسال کد تأیید
+        function sendVerificationCode() {
+            const phone = document.getElementById('phoneInput').value;
+            
+            if (!validatePhoneNumber()) {
+                showToast("لطفاً شماره موبایل معتبر وارد کنید", "error");
+                return;
+            }
+            
+            verificationCode = "123456";
+            
+            alert(`کد تأیید شما: 123456\n\nاین کد را در برنامه وارد کنید.`);
+            
+            isLoginPhase = false;
+            document.getElementById('phoneLabel').textContent = "کد تأیید";
+            document.getElementById('phoneInput').style.display = 'none';
+            document.getElementById('codeGroup').style.display = 'block';
+            document.getElementById('submitBtn').textContent = "تأیید کد";
+            document.getElementById('submitBtn').disabled = false;
+            
+            document.getElementById('resendLink').style.display = 'block';
+            startCountdown();
+            showToast("کد تأیید برای شما ارسال شد", "success");
+        }
+
+        // شروع شمارش معکوس
+        function startCountdown() {
+            timeLeft = 120;
+            const timeLeftElement = document.getElementById('timeLeft');
+            timeLeftElement.textContent = timeLeft;
+            
+            if (countdownInterval) clearInterval(countdownInterval);
+            
+            countdownInterval = setInterval(function() {
+                timeLeft--;
+                timeLeftElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    showToast("کد منقضی شد", "error");
+                }
+            }, 1000);
+        }
+
+        // ارسال مجدد کد
+        function resendCode() {
+            if (timeLeft > 0) {
+                showToast("لطفاً صبر کنید", "error");
+                return;
+            }
+            
+            verificationCode = "123456";
+            
+            alert("کد جدید: 123456");
+            startCountdown();
+            document.getElementById('resendLink').style.display = 'none';
+            showToast("کد جدید ارسال شد", "success");
+        }
+
+        // تأیید کد و ورود به سیستم
+        function verifyCode() {
+            const enteredCode = document.getElementById('codeInput').value;
+            
+            if (enteredCode === verificationCode) {
+                clearInterval(countdownInterval);
+                
+                const phone = document.getElementById('phoneInput').value;
+                const fullPhone = "09" + phone;
+                const userName = "کاربر " + phone.substring(0, 3) + "***";
+                
+                // ورود کاربر به سیستم
+                const user = messageSystem.loginUser(fullPhone, userName);
+                
+                // ذخیره کاربر جاری
+                localStorage.setItem('lastUser', JSON.stringify({
+                    phone: fullPhone,
+                    name: userName
+                }));
+                
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userAvatar').textContent = user.name.charAt(0);
+                document.getElementById('userAvatar').style.background = user.avatarColor;
+                
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'flex';
+                
+                showChatsPage();
+                showToast("ورود موفقیت‌آمیز بود", "success");
+                
+            } else {
+                showToast("کد وارد شده نادرست است", "error");
+            }
+        }
+
+        // ارسال پیام
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (message === '' || !currentChatContact) return;
+            
+            // ارسال پیام به سیستم
+            const sentMessage = messageSystem.sendMessage(currentChatContact.id, message);
+            
+            if (sentMessage) {
+                // نمایش پیام ارسالی
+                addMessage(message, 'sent', sentMessage.time);
+                messageInput.value = '';
+                
+                // پنهان کردن نشانگر تایپ
+                clearTypingIndicator();
+                
+                // شبیه‌سازی تایپ مخاطب
+                showTypingIndicator();
+                
+                // ارسال پاسخ خودکار بعد از مدتی
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    
+                    // ارسال پاسخ خودکار
+                    const autoReply = messageSystem.sendAutoReply(currentChatContact.id);
+                    
+                    if (autoReply) {
+                        addMessage(autoReply.text, 'received', autoReply.time);
+                        
+                        // نمایش اعلان اگر صفحه گفتگوها فعال است
+                        if (currentPage === 'chats') {
+                            showToast(`پیام جدید از ${currentChatContact.name}`, "info");
+                        }
+                    }
+                }, 1500 + Math.random() * 2000);
+                
+                showToast("پیام ارسال شد", "success");
+            }
+        }
+
+        // افزودن پیام به صفحه چت
+        function addMessage(text, type, time) {
+            const messagesArea = document.getElementById('messagesArea');
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `${text}<div class="message-time">${time}</div>`;
+            
+            messagesArea.appendChild(messageDiv);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+            messageDiv.style.animation = 'message-appear 0.3s ease-out';
+        }
+
+        // بارگذاری مکالمات با یک مخاطب
+        function loadChatMessages(contact) {
+            if (!contact) return;
+            
+            currentChatContact = contact;
+            
+            // علامت‌گذاری پیام‌ها به عنوان خوانده شده
+            messageSystem.markMessagesAsRead(contact.id);
+            
+            // بارگذاری پیام‌ها از سیستم
+            const messages = messageSystem.getMessagesWithContact(contact.id);
+            
+            // پاک کردن پیام‌های قبلی
+            const messagesArea = document.getElementById('messagesArea');
+            messagesArea.innerHTML = '';
+            
+            // اضافه کردن پیام‌ها
+            messages.forEach(msg => {
+                const type = msg.sender === messageSystem.currentUser.id ? 'sent' : 'received';
+                addMessage(msg.text, type, msg.time);
+            });
+            
+            // به روزرسانی هدر چت
+            document.getElementById('chatName').textContent = contact.name;
+            document.getElementById('chatAvatarText').textContent = contact.avatar;
+            document.getElementById('chatAvatar').style.background = contact.color;
+            document.getElementById('chatStatus').textContent = contact.online ? 'آنلاین' : 'آفلاین';
+            document.getElementById('onlineDot').style.display = contact.online ? 'block' : 'none';
+            
+            // نمایش صفحه چت
+            showChat();
+            
+            // فوکوس روی فیلد ورودی پیام
+            setTimeout(() => {
+                document.getElementById('messageInput').focus();
+            }, 100);
+        }
+
+        // نمایش نشانگر تایپ
+        function showTypingIndicator() {
+            // پاک کردن تایموت قبلی
+            clearTypingIndicator();
+            
+            // نمایش نشانگر تایپ
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (!typingIndicator) {
+                const messagesArea = document.getElementById('messagesArea');
+                
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'typing-indicator';
+                typingDiv.id = 'typingIndicator';
+                typingDiv.innerHTML = `
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <span>در حال تایپ...</span>
+                `;
+                
+                messagesArea.appendChild(typingDiv);
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+            }
+            
+            // تنظیم تایموت برای پنهان کردن خودکار نشانگر
+            typingTimeout = setTimeout(() => {
+                hideTypingIndicator();
+            }, 3000);
+        }
+
+        // پنهان کردن نشانگر تایپ
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // پاک کردن تایموت نشانگر تایپ
+        function clearTypingIndicator() {
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+                typingTimeout = null;
+            }
+        }
+
+        // بارگذاری و نمایش گفتگوها
+        function loadUserChats() {
+            const chats = messageSystem.getUserChats();
+            const chatsList = document.getElementById('chatsList');
+            chatsList.innerHTML = '';
+            
+            if (chats.length === 0) {
+                chatsList.innerHTML = `
+                    <div style="text-align: center; color: rgba(255, 255, 255, 0.6); padding: 40px 20px;">
+                        <i class="fas fa-comments" style="font-size: 50px; margin-bottom: 15px;"></i>
+                        <p>هنوز گفتگویی ندارید</p>
+                        <p style="font-size: 14px; margin-top: 10px;">برای شروع گفتگو به صفحه مخاطبین بروید</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            chats.forEach(chat => {
+                const chatItem = document.createElement('div');
+                chatItem.className = 'chat-item';
+                chatItem.onclick = () => openChat(chat);
+                
+                chatItem.innerHTML = `
+                    <div class="chat-item-avatar" style="background: ${chat.contactColor};">
+                        ${chat.contactAvatar}
+                        ${chat.online ? '<div class="online-dot"></div>' : ''}
+                    </div>
+                    <div class="chat-item-info">
+                        <div class="chat-item-name">
+                            ${chat.contactName}
+                            ${chat.online ? '<span style="color:#4caf50; font-size:12px; margin-right:5px;">●</span>' : ''}
+                        </div>
+                        <div class="chat-item-last-message">${chat.lastMessage}</div>
+                    </div>
+                    <div>
+                        <div class="chat-item-time">${chat.lastMessageTime}</div>
+                        ${chat.unreadCount > 0 ? `<div class="unread-badge">${chat.unreadCount}</div>` : ''}
+                    </div>
+                `;
+                
+                chatsList.appendChild(chatItem);
+            });
+        }
+
+        // بارگذاری و نمایش مخاطبین
+        function loadUserContacts() {
+            const contacts = messageSystem.getUserContacts();
+            const contactsList = document.getElementById('contactsList');
+            contactsList.innerHTML = '';
+            
+            contacts.forEach(contact => {
+                const contactItem = document.createElement('div');
+                contactItem.className = 'contact-item';
+                contactItem.onclick = () => openChatFromContacts(contact);
+                
+                contactItem.innerHTML = `
+                    <div class="contact-avatar" style="background: ${contact.color};">
+                        ${contact.avatar}
+                        ${contact.online ? '<div class="online-dot"></div>' : ''}
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-name">
+                            ${contact.name}
+                            ${contact.online ? '<span style="color:#4caf50; font-size:12px; margin-right:5px;">●</span>' : ''}
+                        </div>
+                        <div class="contact-last-message">${contact.lastSeen}</div>
+                    </div>
+                `;
+                
+                contactsList.appendChild(contactItem);
+            });
+        }
+
+        // فیلتر مخاطبین
+        function filterContacts() {
+            const searchTerm = document.getElementById('contactSearch').value.toLowerCase();
+            const contactItems = document.querySelectorAll('.contact-item');
+            
+            contactItems.forEach(item => {
+                const contactName = item.querySelector('.contact-name').textContent.toLowerCase();
+                item.style.display = contactName.includes(searchTerm) ? 'flex' : 'none';
+            });
+        }
+
+        // فیلتر گفتگوها
+        function filterChats() {
+            const searchTerm = document.getElementById('chatsSearch').value.toLowerCase();
+            const chatItems = document.querySelectorAll('.chat-item');
+            
+            chatItems.forEach(item => {
+                const chatName = item.querySelector('.chat-item-name').textContent.toLowerCase();
+                item.style.display = chatName.includes(searchTerm) ? 'flex' : 'none';
+            });
+        }
+
+        // باز کردن چت از صفحه گفتگوها
+        function openChat(chat) {
+            const contact = {
+                id: chat.contactId,
+                name: chat.contactName,
+                avatar: chat.contactAvatar,
+                color: chat.contactColor,
+                online: chat.online
+            };
+            
+            loadChatMessages(contact);
+        }
+
+        // باز کردن چت از صفحه مخاطبین
+        function openChatFromContacts(contact) {
+            loadChatMessages(contact);
+        }
+
+        // نمایش صفحه گفتگوها
+        function showChatsPage() {
+            currentPage = 'chats';
+            document.getElementById('chatsPage').style.display = 'flex';
+            document.getElementById('chatContainer').style.display = 'none';
+            document.getElementById('contactsPage').style.display = 'none';
+            
+            document.getElementById('navChats').classList.add('active');
+            document.getElementById('navContacts').classList.remove('active');
+            document.getElementById('navProfile').classList.remove('active');
+            
+            // بارگذاری گفتگوهای کاربر
+            loadUserChats();
+        }
+
+        // نمایش صفحه چت
+        function showChat() {
+            currentPage = 'chat';
+            document.getElementById('chatsPage').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'flex';
+            document.getElementById('contactsPage').style.display = 'none';
+            
+            document.getElementById('navChats').classList.remove('active');
+            document.getElementById('navContacts').classList.remove('active');
+            document.getElementById('navProfile').classList.remove('active');
+        }
+
+        // نمایش صفحه مخاطبین
+        function showContactsPage() {
+            currentPage = 'contacts';
+            document.getElementById('chatsPage').style.display = 'none';
+            document.getElementById('chatContainer').style.display = 'none';
+            document.getElementById('contactsPage').style.display = 'flex';
+            
+            document.getElementById('navChats').classList.remove('active');
+            document.getElementById('navContacts').classList.add('active');
+            document.getElementById('navProfile').classList.remove('active');
+            
+            // بارگذاری مخاطبین کاربر
+            loadUserContacts();
+        }
+
+        // نمایش صفحه پروفایل
+        function showProfile() {
+            showToast("صفحه پروفایل به زودی اضافه می‌شود", "info");
+            document.getElementById('navChats').classList.remove('active');
+            document.getElementById('navContacts').classList.remove('active');
+            document.getElementById('navProfile').classList.add('active');
+        }
+
+        // نمایش تنظیمات
+        function showSettings() {
+            showToast("تنظیمات به زودی اضافه می‌شود", "info");
+        }
+
+        // پیوست فایل
+        function attachFile() {
+            showToast("امکان ارسال فایل به زودی اضافه می‌شود", "info");
+        }
+
+        // نمایش اعلان
+        function showToast(message, type = "info") {
+            const toast = document.getElementById('toast');
+            let icon = "fas fa-info-circle";
+            if (type === "success") icon = "fas fa-check-circle";
+            if (type === "error") icon = "fas fa-exclamation-circle";
+            
+            toast.innerHTML = `<i class="${icon}"></i><span id="toastMessage">${message}</span>`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // شبیه‌سازی اعلان‌های پیام جدید
+        setInterval(function() {
+            if (messageSystem.currentUser && currentPage !== 'chat' && Math.random() > 0.7) {
+                const chats = messageSystem.getUserChats();
+                if (chats.length > 0) {
+                    const randomChat = chats[Math.floor(Math.random() * chats.length)];
+                    if (randomChat.unreadCount === 0) {
+                        showToast(`پیام جدید از ${randomChat.contactName}`, "info");
+                    }
+                }
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
